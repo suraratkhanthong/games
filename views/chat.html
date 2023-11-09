@@ -13,14 +13,19 @@
 </ul>
 <input type="text" id="message">
 <button onClick="SendMSG()">send</button>
+<button onClick="ChangName()">Chang Name</button>
+<input type="text" id="getChangName" style="display: none;">
+<button onClick="confirmName()" id="btnConfirm" style="display: none;">ok</button>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
 const socket = io();
 const messageList = document.querySelector("#message-list");
 const inputMSG = document.querySelector("#message");
+const inputChangName = document.querySelector("#getChangName");
+const btnConfirm = document.querySelector("#btnConfirm");
 const dateNow = Date.now();
-let startName = Date.now();
+let newUserName = Date.now();
 
 inputMSG.addEventListener("keypress", function(event) {
   if (event.key === "Enter") {
@@ -33,12 +38,12 @@ inputMSG.addEventListener("keypress", function(event) {
 socket.emit("chat message", {
 		msg: "---------เข้าร่วม----------",
 		userId: dateNow,
-		userName: startName
+		userName: newUserName
 })
 socket.emit("status-user", {
 		msg: "",
 		userId: "",
-		userName: startName
+		userName: newUserName
 })
 
 
@@ -46,9 +51,33 @@ function SendMSG(){
 	socket.emit("chat message", {
 		msg: inputMSG.value,
 		userId: dateNow,
-		userName: startName
+		userName: newUserName
 	})
 	inputMSG.value = "";
+}
+function ChangName(){
+	inputChangName.style.display = "block"
+	btnConfirm.style.display = "block"
+}
+function confirmName(){
+	inputChangName.style.display = "none"
+	btnConfirm.style.display = "none"
+	
+	newUserName = inputChangName.value;
+	
+	socket.emit("chat message", {
+		msg: dateNow+" Chang Name ---> " + newUserName,
+		userId: dateNow,
+		userName: newUserName
+})
+	
+	<!-- socket.on("chat message", (msgObject)=>{ -->
+		
+		<!-- if(msgObject.userId === dateNow){ -->
+			<!-- startName = inputChangName; -->
+			
+		<!-- } -->
+	<!-- }) -->
 }
 
 socket.on("chat message", (msgObject)=>{

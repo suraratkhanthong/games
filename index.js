@@ -27,7 +27,7 @@ const io = socketio(server)
 	// })
 	
 // })
-let counterOnline = 1;
+let counterOnline = 0;
 
 io.on("connect", (socket)=>{
 	let userName = "";

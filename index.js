@@ -27,25 +27,39 @@ const io = socketio(server)
 	// })
 	
 // })
+let counterOnline = 1;
 
 io.on("connect", (socket)=>{
-	
+	let userName = "";
 	// console.log("New user")
 	
-	socket.on("status-user", (name)=>{
-		let userName = name;
-		console.log(userName.userName + " connected")
+	socket.on("status-user", (data)=>{
+		userName = data.userName;
+		if(data.WhatToDo === "ChangName"){
+			// --------------Chang
+			// console.log(data.userId + " ChangName --->" +userName)
+		}else{
+			// --------------start
+			// console.log(userName + " connected")
+			counterOnline++;
+			io.emit("status-user", {
+				countOnline: counterOnline
+			})
+		}
 		
-		socket.on('disconnect', ()=>{
-			console.log(userName.userName + " disconnected");
-			
+	})
+	
+	socket.on('disconnect', ()=>{
+		 // console.log(userName + " disconnected");
 			io.emit("chat message", {
 				msg: "------disconnected-----",
 				userId: "",
-				userName: userName.userName
+				userName: userName
 			})
-		})
-		
+			counterOnline--;
+			io.emit("status-user", {
+				countOnline: counterOnline
+			})
 	})
 	
 	socket.on("chat message", (msg)=>{

@@ -27,12 +27,12 @@ const io = socketio(server)
 	// })
 	
 // })
-let counterOnline = 1;
+let counterOnline = 0;
 
 io.on("connect", (socket)=>{
 	let userName = "";
 	// console.log("New user")
-	
+	counterOnline++;
 	socket.on("status-user", (data)=>{
 		userName = data.userName;
 		if(data.WhatToDo === "ChangName"){
@@ -41,7 +41,7 @@ io.on("connect", (socket)=>{
 		}else{
 			// --------------start
 			// console.log(userName + " connected")
-			counterOnline++;
+			
 			io.emit("status-user", {
 				countOnline: counterOnline
 			})

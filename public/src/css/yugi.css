@@ -16,17 +16,40 @@ body{
 }
 .tableField{
 	width: 95%;
+	max-width: 500px;
 	border-collapse: collapse;
 }
 .tableField, tr, td {
   border:1px solid #fff;
-  height: 90px;
+  height: 75px;
   margin: auto;
   text-align: center;
+  /* width: 390px; */
+  font-size: 10px;
+  
 }
 .tdMonsterZone{
+	width: 55px;
 	background-color: #D2691E;
 }
 .tdSpellandTrapZone{
 	background-color: #87CEEB;
+}
+.tdFieldZone{
+	background-color: #00FF7F;
+}
+.tdExtraDeckZone{
+	background-color: #DDA0DD;
+}
+.tdGraveyardZone{
+	background-color: #708090;
+}
+.tdDeckZone{
+	background-color: #A0522D;
+}
+.tdExtraMonsterZone{
+	background-color: #00dfdf;
+}
+.tdRemoveZone{
+	color: #fff;
 }

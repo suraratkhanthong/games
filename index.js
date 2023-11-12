@@ -16,17 +16,12 @@ app.get("/", (req,res)=>{
 app.get("/chat", (req,res)=>{
 	res.sendFile(__dirname+"/views/chat.html");
 })
+app.get("/yugi", (req,res)=>{
+	res.sendFile(__dirname+"/views/yugi.html");
+})
 
 const io = socketio(server)
 
-// io.on("connect", (socket)=>{
-	
-	// console.log("New user")
-	// socket.on("chat message", (msg)=>{
-		// io.emit("chat message", msg);
-	// })
-	
-// })
 let counterOnline = 0;
 
 io.on("connect", (socket)=>{
@@ -41,14 +36,11 @@ io.on("connect", (socket)=>{
 		}else{
 			// --------------start
 			// console.log(userName + " connected")
-			
 			io.emit("status-user", {
 				countOnline: counterOnline
 			})
 		}
-		
 	})
-	
 	socket.on('disconnect', ()=>{
 		 // console.log(userName + " disconnected");
 			io.emit("chat message", {
@@ -61,7 +53,6 @@ io.on("connect", (socket)=>{
 				countOnline: counterOnline
 			})
 	})
-	
 	socket.on("chat message", (msg)=>{
 		io.emit("chat message", msg);
 	})

@@ -1,0 +1,32 @@
+      *,
+*:before,
+*:after{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+	background-color: #393939;
+}
+
+.div-table{
+	width: 100%;
+	margin-top: 70px;
+}
+.tableField{
+	width: 95%;
+	border-collapse: collapse;
+}
+.tableField, tr, td {
+  border:1px solid #fff;
+  height: 90px;
+  margin: auto;
+  text-align: center;
+}
+.tdMonsterZone{
+	background-color: #D2691E;
+}
+.tdSpellandTrapZone{
+	background-color: #87CEEB;
+}
